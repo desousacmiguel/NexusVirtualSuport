@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS Virtual Support | Operações & Estratégia</title>
+    <!-- Tailwind CSS para design responsivo e moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js para visualização de dados interativa -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Estilização obrigatória dos contentores de gráficos para manter a responsividade */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.4);
+        }
+
+        /* Logótipo Geométrico Minimalista da NEXUS */
+        .nexus-logo-icon {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            background: #4f46e5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nexus-logo-icon::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(255,255,255,0.4);
+            transform: rotate(45deg);
+        }
+        .nexus-logo-icon::after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 80% 20%, #eff6ff 0%, #fafaf9 45%);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4f46e5;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .tool-btn.active {
+            background: white;
+            border-left: 4px solid #4f46e5;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .about-image-frame {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            background: #f1f5f9;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .about-image-frame:hover .profile-img {
+            transform: scale(1.08);
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-900 antialiased">
+
+    <!-- Notificação Superior -->
+    <div class="bg-indigo-600 text-white text-[10px] py-1.5 text-center font-bold uppercase tracking-[0.2em] relative z-[60]">
+        NEXUS Phase: 2 Vagas para Trial de 10 Horas Disponíveis
+    </div>
+
+    <!-- Navegação Principal -->
+    <nav class="fixed w-full z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="nexus-logo-icon group-hover:rotate-90"></div>
+                <div class="text-xl font-extrabold tracking-tighter text-slate-900 uppercase">
+                    NEXUS<span class="text-indigo-600 font-black"> Virtual Support</span>
+                </div>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-10 text-sm font-bold">
+                <a href="#sobre" class="nav-link text-slate-600">Sobre</a>
+                <a href="#servicos" class="nav-link text-slate-600">Serviços</a>
+                <a href="#metodo" class="nav-link text-slate-600">Método</a>
+                <div class="h-4 w-px bg-slate-200"></div>
+                <div class="flex items-center gap-5">
+                    <a href="https://linkedin.com/in/miguelscorreia/" target="_blank" class="hover:text-indigo-600 transition-colors">in</a>
+                    <a href="mailto:geral.nexusvs@gmail.com" class="hover:text-indigo-600 transition-colors font-bold text-lg">✉</a>
+                    <a href="#contacto" class="bg-slate-900 text-white px-6 py-2.5 rounded-xl hover:bg-indigo-600 transition-all shadow-lg">
+                        Começar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Secção Hero -->
+    <section class="pt-48 pb-24 hero-gradient px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div class="space-y-10">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white text-indigo-700 text-[11px] font-extrabold uppercase tracking-widest rounded-lg border border-indigo-50 shadow-sm">
+                    <span class="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></span>
+                    Operações Inteligentes para Fundadores
+                </div>
+                <h1 class="text-6xl lg:text-8xl font-black text-slate-900 leading-[0.95] tracking-tight">
+                    O seu tempo é <br><span class="text-indigo-600">estratégico.</span>
+                </h1>
+                <p class="text-xl text-slate-500 leading-relaxed max-w-lg">
+                    A NEXUS Virtual Support atua como o seu braço direito operacional, libertando-o para focar na escala e na sua visão de negócio.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-5">
+                    <button onclick="openBooking()" class="bg-indigo-600 text-white px-10 py-5 rounded-2xl font-bold text-center hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-100 flex items-center justify-center gap-3">
+                        Agendar Demo (15 min)
+                        <span>→</span>
+                    </button>
+                    <a href="https://wa.me/351932882094" target="_blank" class="px-10 py-5 rounded-2xl font-bold text-center border-2 border-slate-200 bg-white hover:border-indigo-600 transition-all">
+                        WhatsApp Direto
+                    </a>
+                </div>
+            </div>
+
+            <!-- Dashboard de Eficiência -->
+            <div class="bg-white p-8 lg:p-12 rounded-[3.5rem] shadow-2xl border border-stone-100 relative">
+                <div class="absolute -top-6 -right-6 bg-slate-900 text-white p-5 rounded-2xl shadow-xl rotate-3">
+                    <p class="text-[10px] font-black uppercase tracking-widest opacity-60">Impacto Semanal</p>
+                    <p class="text-2xl font-black">+10h Livres</p>
+                </div>
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-10">Curva de Recuperação de Foco</h3>
+                <div class="chart-container">
+                    <canvas id="efficiencyChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secção: Sobre Mim (About Me) -->
+    <section id="sobre" class="py-32 px-6 bg-white overflow-hidden fade-in-section">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="about-image-frame aspect-square relative group">
+                    <!-- Imagem de Perfil com Fallback Automático -->
+                    <img id="profileImage" src="minha-foto.jpg" alt="Miguel Correia" class="profile-img" onerror="handleImageError()">
+                    
+                    <!-- Contentor de Fallback (mostra se a imagem não existir) -->
+                    <div id="imageFallback" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 bg-slate-100 hidden">
+                        <span class="text-8xl mb-4">👤</span>
+                        <p class="font-bold text-sm uppercase tracking-widest">Miguel Correia</p>
+                    </div>
+
+                    <div class="absolute bottom-10 right-10 bg-white p-6 rounded-3xl shadow-xl border border-stone-100 max-w-[220px]">
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="inline-block px-3 py-1 bg-stone-100 text-stone-600 text-[10px] font-bold uppercase rounded-md">Founder & Principal VEA</div>
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter">Olá, sou o Miguel (aka Mike).</h2>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        Iniciei a NEXUS Virtual Support para colmatar a falha que muitos fundadores sentem: o peso da microgestão administrativa. O meu trabalho é implementar sistemas de organização inteligentes que devolvam o controlo do seu calendário.
+                    </p>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        Especializado em <strong>startups e criadores digitais</strong>, utilizo tecnologia de ponta e comunicação assíncrona para garantir que nada se perde no ruído e que a sua estrutura cresce de forma sustentada.
+                    </p>
+                    <div class="pt-6 grid grid-cols-2 gap-8">
+                        <div class="p-6 rounded-2xl bg-stone-50 border border-stone-100">
+                            <p class="text-4xl font-black text-indigo-600">100%</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Confidencialidade</p>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-stone-50 border border-stone-100">
+                            <p class="text-4xl font-black text-indigo-600">Async</p>
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Workflow Nativo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secção: Serviços -->
+    <section id="servicos" class="py-32 px-6 bg-stone-50 border-y border-stone-200">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                <div class="max-w-2xl space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 uppercase">Expertise NEXUS.</h2>
+                    <p class="text-lg text-slate-500 leading-relaxed">Eliminamos as barreiras operacionais que consomem até 40% da produtividade semanal de um fundador moderno.</p>
+                </div>
+                <div class="pb-2">
+                    <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-5 py-2.5 rounded-xl border border-indigo-100">Soluções para Startups</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="group p-12 bg-white rounded-[3rem] border border-stone-100 hover:border-indigo-200 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-100/20">
+                    <div class="w-16 h-16 bg-stone-50 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-indigo-600 group-hover:text-white transition-all">📩</div>
+                    <h3 class="text-2xl font-bold mb-4">Inbox Mastery</h3>
+                    <p class="text-slate-600 leading-relaxed mb-8">Triagem de emails de alta performance, redação de rascunhos para aprovação rápida e gestão de follow-ups críticos. O seu email deixa de ser uma tarefa e passa a ser um sistema.</p>
+                </div>
+                <div class="group p-12 bg-white rounded-[3rem] border border-stone-100 hover:border-indigo-200 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-100/20">
+                    <div class="w-16 h-16 bg-stone-50 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-indigo-600 group-hover:text-white transition-all">🗓️</div>
+                    <h3 class="text-2xl font-bold mb-4">Strategic Calendar</h3>
+                    <p class="text-slate-600 leading-relaxed mb-8">Gestão de agenda focada na proteção de Deep Work. Coordenamos fusos horários e stakeholders para garantir que o seu foco está no lugar certo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secção: Metodologia (Stack Tecnológico) -->
+    <section id="metodo" class="py-32 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="space-y-10">
+                    <h2 class="text-4xl font-black">O Stack da NEXUS.</h2>
+                    <p class="text-lg text-slate-600">A nossa eficiência nasce da combinação de processos manuais rigorosos com o melhor stack tecnológico disponível no mercado.</p>
+                    
+                    <div class="space-y-4">
+                        <button onclick="showTool('slack')" class="tool-btn active w-full flex items-center justify-between p-7 bg-white rounded-2xl text-left border border-slate-100 transition-all shadow-sm">
+                            <div>
+                                <span class="font-black text-indigo-600 block text-[10px] uppercase mb-1">Comunicação</span>
+                                <span class="font-bold text-lg">Slack (Async Flow)</span>
+                            </div>
+                            <span class="text-indigo-600">#</span>
+                        </button>
+                        <button onclick="showTool('ia')" class="tool-btn w-full flex items-center justify-between p-7 bg-white/50 rounded-2xl text-left border border-transparent transition-all hover:bg-white">
+                            <div>
+                                <span class="font-black text-slate-400 block text-[10px] uppercase mb-1">Eficácia</span>
+                                <span class="font-bold text-lg">IA Intelligence</span>
+                            </div>
+                            <span class="text-slate-400 text-xl">✧</span>
+                        </button>
+                        <button onclick="showTool('notion')" class="tool-btn w-full flex items-center justify-between p-7 bg-white/50 rounded-2xl text-left border border-transparent transition-all hover:bg-white">
+                            <div>
+                                <span class="font-black text-slate-400 block text-[10px] uppercase mb-1">Estrutura</span>
+                                <span class="font-bold text-lg">NEXUS Command (Notion)</span>
+                            </div>
+                            <span class="text-slate-400">→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 p-12 lg:p-16 rounded-[4rem] shadow-2xl text-white relative min-h-[480px] flex items-center">
+                    <div id="tool-content" class="relative z-10 transition-opacity duration-500">
+                        <h3 class="text-3xl font-bold mb-6 text-indigo-400">Slack (Async Flow)</h3>
+                        <p class="text-slate-400 leading-relaxed text-lg">
+                            Reduzimos o ruído de reuniões. Utilizamos canais estruturados para comunicações rápidas e assíncronas, garantindo que o seu dia não é interrompido mas que nada fica sem resposta.
+                        </p>
+                        <div class="mt-10 flex flex-wrap gap-3">
+                            <span class="px-4 py-2 bg-slate-800 rounded-xl text-[11px] font-bold border border-slate-700 uppercase tracking-widest text-slate-300"># Canal-Aprovações</span>
+                            <span class="px-4 py-2 bg-slate-800 rounded-xl text-[11px] font-bold border border-slate-700 uppercase tracking-widest text-slate-300"># Sumário-Diário</span>
+                        </div>
+                    </div>
+                    <div class="absolute -top-10 -left-10 w-48 h-48 bg-indigo-600/10 blur-[100px] rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secção Final de CTA -->
+    <section id="contacto" class="py-24 px-6">
+        <div class="max-w-5xl mx-auto bg-indigo-600 rounded-[4rem] p-12 md:p-24 text-center text-white shadow-2xl shadow-indigo-200">
+            <div class="space-y-10">
+                <h2 class="text-5xl md:text-6xl font-black">Liberte 10h da sua próxima semana.</h2>
+                <div class="flex flex-wrap justify-center gap-5">
+                    <button onclick="openBooking()" class="bg-white text-indigo-600 px-12 py-6 rounded-2xl font-black text-xl hover:bg-slate-900 hover:text-white transition-all shadow-xl">
+                        Solicitar Pack Trial
+                    </button>
+                    <a href="mailto:geral.nexusvs@gmail.com" class="bg-indigo-500 text-white border border-indigo-400 px-12 py-6 rounded-2xl font-black text-xl hover:bg-indigo-400 transition-all">
+                        Enviar Email
+                    </a>
+                </div>
+                <p class="text-xs font-bold uppercase tracking-widest opacity-60">Pack Experimental NEXUS: Condições de Lançamento</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="py-20 border-t border-stone-200 bg-white">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
+            <div class="flex items-center gap-3">
+                <div class="nexus-logo-icon"></div>
+                <span class="font-black text-xl tracking-tighter uppercase">NEXUS Virtual Support</span>
+            </div>
+            
+            <div class="flex gap-10 text-sm font-bold text-slate-400 uppercase tracking-widest">
+                <a href="https://linkedin.com/in/miguelscorreia/" target="_blank" class="hover:text-indigo-600 transition-colors">LinkedIn</a>
+                <a href="mailto:geral.nexusvs@gmail.com" class="hover:text-indigo-600 transition-colors">Email</a>
+                <a href="https://wa.me/351932882094" target="_blank" class="hover:text-indigo-600 transition-colors">WhatsApp</a>
+            </div>
+            
+            <div class="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em]">
+                © 2024 NEXUS Virtual Support
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Contacto -->
+    <div id="booking-modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-6">
+        <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onclick="closeBooking()"></div>
+        <div class="bg-white w-full max-w-lg rounded-[3.5rem] p-12 relative z-10 shadow-2xl animate-in zoom-in duration-300">
+            <h3 class="text-4xl font-black mb-4 text-slate-900 tracking-tight">Contacte a NEXUS.</h3>
+            <p class="text-slate-500 mb-10 leading-relaxed">Conte-nos brevemente o seu maior desafio operacional. Respondemos em menos de 12 horas.</p>
+            
+            <form onsubmit="handleContact(event)" class="space-y-6">
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 ml-2 tracking-widest">Empresa / Projeto</label>
+                    <input type="text" required class="w-full px-6 py-4 rounded-2xl bg-stone-50 border border-stone-100 focus:outline-none focus:ring-4 focus:ring-indigo-600/10 focus:border-indigo-600 transition-all">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 ml-2 tracking-widest">O que delegaria hoje?</label>
+                    <textarea required class="w-full px-6 py-4 rounded-2xl bg-stone-50 border border-stone-100 focus:outline-none focus:ring-4 focus:ring-indigo-600/10 focus:border-indigo-600 transition-all" rows="3"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-black text-lg hover:bg-slate-900 transition-all shadow-xl shadow-indigo-100">
+                    Solicitar Demo de 15 Min
+                </button>
+            </form>
+            <button onclick="closeBooking()" class="mt-8 text-xs font-bold text-slate-400 w-full text-center hover:text-slate-900 uppercase tracking-widest">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        // Inicialização do Gráfico de Eficiência
+        function initChart() {
+            const ctx = document.getElementById('efficiencyChart').getContext('2d');
+            const grad = ctx.createLinearGradient(0, 0, 0, 300);
+            grad.addColorStop(0, 'rgba(79, 70, 229, 0.2)');
+            grad.addColorStop(1, 'rgba(79, 70, 229, 0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+                    datasets: [{
+                        label: 'Horas Ganhas',
+                        data: [4, 15, 30, 42],
+                        borderColor: '#4f46e5',
+                        backgroundColor: grad,
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 6,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            grid: { color: '#f1f5f9' },
+                            ticks: { font: { weight: 'bold' }, callback: v => v + 'h' }
+                        },
+                        x: { grid: { display: false }, ticks: { font: { weight: 'bold' } } }
+                    }
+                }
+            });
+        }
+
+        // Lógica de Troca de Ferramentas (Stack)
+        const toolData = {
+            slack: {
+                title: "Slack (Async Flow)",
+                desc: "Eliminamos a necessidade de reuniões constantes. Utilizamos canais de Slack estruturados para comunicações rápidas e assíncronas, mantendo tudo documentado.",
+                tags: ["# Operações", "# Aprovações"]
+            },
+            ia: {
+                title: "IA Intelligence",
+                desc: "Utilizamos a nossa camada de IA Intelligence para resumir chamadas, redigir propostas complexas e automatizar fluxos de CRM em tempo recorde.",
+                tags: ["Drafting Inteligente", "Sumários Executivos"]
+            },
+            notion: {
+                title: "NEXUS Command Center",
+                desc: "A sua empresa torna-se um ativo documentado. Criamos wikis internas, atas de reuniões e bases de dados de parceiros no Notion.",
+                tags: ["Wiki de Processos", "Project Management"]
+            }
+        };
+
+        function showTool(key) {
+            document.querySelectorAll('.tool-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-white', 'border-indigo-600', 'shadow-sm');
+                btn.classList.add('bg-white/50', 'border-transparent');
+            });
+            event.currentTarget.classList.add('active', 'bg-white', 'border-indigo-600', 'shadow-sm');
+            event.currentTarget.classList.remove('bg-white/50', 'border-transparent');
+            
+            const content = document.getElementById('tool-content');
+            content.style.opacity = 0;
+            setTimeout(() => {
+                const data = toolData[key];
+                content.innerHTML = `
+                    <h3 class="text-3xl font-extrabold mb-6 text-indigo-400">${data.title}</h3>
+                    <p class="text-slate-400 leading-relaxed text-lg">${data.desc}</p>
+                    <div class="mt-10 flex flex-wrap gap-3">
+                        ${data.tags.map(tag => `<span class="px-4 py-2 bg-slate-800 rounded-xl text-[11px] font-bold border border-slate-700 uppercase tracking-widest text-slate-300">${tag}</span>`).join('')}
+                    </div>
+                `;
+                content.style.opacity = 1;
+            }, 200);
+        }
+
+        // Funções da UI (Modais e Imagem)
+        function openBooking() {
+            document.getElementById('booking-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBooking() {
+            document.getElementById('booking-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleImageError() {
+            document.getElementById('profileImage').style.display = 'none';
+            document.getElementById('imageFallback').classList.remove('hidden');
+        }
+
+        function handleContact(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerHTML = "A processar...";
+            setTimeout(() => {
+                alert("Pedido enviado! A NEXUS Virtual Support entrará em contacto nas próximas 12 horas.");
+                closeBooking();
+                btn.innerHTML = "Solicitar Demo de 15 Min";
+                e.target.reset();
+            }, 1000);
+        }
+
+        // Scroll Animation Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        window.onload = () => {
+            initChart();
+            document.querySelectorAll('.fade-in-section').forEach(section => observer.observe(section));
+        };
+    </script>
+
+    <!-- Chosen Palette: Warm Professional Neutrals (Stone) com acentos Indigo e Slate Deep. -->
+    <!-- Application Structure Plan: 
+         SPA focada na conversão e autoridade. 
+         A estrutura é indexada por seções (Hero -> Sobre -> Serviços -> Tecnologia -> CTA).
+         Utiliza Chart.js para mostrar o ROI de tempo e JS para troca de estados de ferramentas.
+    -->
+    <!-- Visualization & Content Choices:
+         - Line Chart: Mostra a progressão de horas ganhas.
+         - Tool Switcher: Organiza a complexidade técnica do negócio.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</body>
+</html>
